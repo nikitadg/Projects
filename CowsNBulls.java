@@ -7,12 +7,13 @@ public class CowsNBulls {
    private int cows=0; //одинаковые числа на разных позициях
    private int bulls=0;//одинаковые числа на одинаковых позициях
 
-    public void setDifficulty(int diff){
-        difficulty=diff;
+    public void setDifficulty(){
+        Scanner scanner=new Scanner(System.in);
+        difficulty=scanner.nextInt();
+        System.out.print("Ваш выбранный уровень сложности: "+ difficulty);
     }
 
-    public void setRealMassive(int diff) {
-        setDifficulty(diff);
+    public void setRealMassive() {
         realMassive=new int[difficulty];
         for (int i = 0; i < difficulty; i++) {
             boolean flag=false;
@@ -35,23 +36,18 @@ public class CowsNBulls {
         }
     }
 
-
-
-    public void setGuessedMassive(int diff){
-        setDifficulty(diff);
+    public void setGuessedMassive(){
+        int argCount=0;
         guessedMassive=new int[difficulty];
         Scanner scanner=new Scanner(System.in);
-        for(int i=0;i<difficulty;i++){
-            int value=scanner.nextInt();
-            guessedMassive[i]=value;
+        while(scanner.hasNext()){
+            if(argCount>difficulty){
+                break;
+            }
+                guessedMassive[argCount]=scanner.nextInt();
+                argCount++;
         }
 
-    }
-
-    public void getGuessedMassive(){
-        for(int i=0;i<difficulty;i++){
-            System.out.print(guessedMassive[i]);
-        }
     }
 
     public void compare(){
@@ -68,12 +64,12 @@ public class CowsNBulls {
         System.out.println("Cows:"+cows+" Bulls:"+bulls);
     }
 
-    public void game(int diff){
-        setDifficulty(diff);
-        setRealMassive(diff);
+    public void game(){
+        setDifficulty();
+        setRealMassive();
         int count=0;
         while(bulls!=difficulty){
-            setGuessedMassive(difficulty);
+            setGuessedMassive();
             compare();
             count++;
         }
@@ -83,11 +79,12 @@ public class CowsNBulls {
 
     public static void main(String[] args){
         CowsNBulls test=new CowsNBulls();
-        test.game(5);
+        test.game();
     }
 }
 
 /*todo
-1.Дать выбор пользователю выбирать сложность самому
+1.Дать выбор пользователю выбирать сложность самому - DONE
 2.Дать возможность сдаться ключевым словом "сдаюсь"
+3.Ошибка при вводе бОльшего количества симвлов 
  */
