@@ -7,15 +7,19 @@ public class CowsNBulls {
    private int cows=0; //одинаковые числа на разных позициях
    private int bulls=0;//одинаковые числа на одинаковых позициях
 
-    public void setDifficulty(){
+    private void setDifficulty(){
         Scanner scanner=new Scanner(System.in);
         difficulty=scanner.nextInt();
-        System.out.print("Ваш выбранный уровень сложности: "+ difficulty);
+        System.out.print("Ваш выбранный уровень сложности: "+ difficulty+"\n");
     }
 
-    public void setRealMassive() {
-        realMassive=new int[difficulty];
-        for (int i = 0; i < difficulty; i++) {
+    private int getDifficulty(){
+        return difficulty;
+    }
+
+    private void setRealMassive() {
+        realMassive=new int[getDifficulty()];
+        for (int i = 0; i < getDifficulty(); i++) {
             boolean flag=false;
             int tmp=(int)(Math.random()*10);
             for(int j=0;j<i;j++){
@@ -30,31 +34,40 @@ public class CowsNBulls {
 
         }
     }
-    public void getRealMassive(){
-        for(int i=0;i<difficulty;i++){
+    private void getRealMassive(){
+        for(int i=0;i<getDifficulty();i++){
             System.out.print(realMassive[i]);
         }
     }
 
-    public void setGuessedMassive(){
-        int argCount=0;
-        guessedMassive=new int[difficulty];
+   /* private void setGuessedMassive(){
+        guessedMassive=new int[getDifficulty()];
         Scanner scanner=new Scanner(System.in);
-        while(scanner.hasNext()){
-            if(argCount>difficulty){
-                break;
+        boolean enterLoop=true;
+        while(enterLoop){
+            String defeat=scanner.nextLine();
+            if(defeat.equals("Сдаюсь")){
+                getRealMassive();
+                enterLoop=false;
             }
-                guessedMassive[argCount]=scanner.nextInt();
-                argCount++;
         }
-
+        todo: если не сдаюсь, заполнять массив 
     }
 
-    public void compare(){
-        cows=0;
-        bulls=0;
-        for(int i=0;i<difficulty;i++){
-            for(int j=0;j<difficulty;j++){
+    */
+   private void setGuessedMassive(){
+       guessedMassive=new int[getDifficulty()];
+       Scanner scanner=new Scanner(System.in);
+       for(int i=0;i<getDifficulty();i++){
+           guessedMassive[i]=scanner.nextInt();
+       }
+
+   }
+
+    private void compare(){
+        cows=0; bulls=0;
+        for(int i=0;i<getDifficulty();i++){
+            for(int j=0;j<getDifficulty();j++){
                 if(realMassive[i]==guessedMassive[j]){
                     if(i==j)bulls++;
                     else cows++;
@@ -64,11 +77,11 @@ public class CowsNBulls {
         System.out.println("Cows:"+cows+" Bulls:"+bulls);
     }
 
-    public void game(){
+    private void game(){
         setDifficulty();
         setRealMassive();
         int count=0;
-        while(bulls!=difficulty){
+        while(bulls!=getDifficulty()){
             setGuessedMassive();
             compare();
             count++;
@@ -83,8 +96,4 @@ public class CowsNBulls {
     }
 }
 
-/*todo
-1.Дать выбор пользователю выбирать сложность самому - DONE
-2.Дать возможность сдаться ключевым словом "сдаюсь"
-3.Ошибка при вводе бОльшего количества симвлов 
- */
+
