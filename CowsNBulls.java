@@ -2,10 +2,10 @@ import java.util.Scanner;
 
 public class CowsNBulls {
     private int difficulty;//сложность и размер массива
-   private  int[] realMassive; //массив из чисел, заполненных компьютером
-   private  int[] guessedMassive; // массив из чисел, заполненных человеком
-   private int cows=0; //одинаковые числа на разных позициях
-   private int bulls=0;//одинаковые числа на одинаковых позициях
+    private  int[] realArray; //массив из чисел, заполненных компьютером
+    private  int[] guessedArray; // массив из чисел, заполненных человеком
+    private int cows=0; //одинаковые числа на разных позициях
+    private int bulls=0;//одинаковые числа на одинаковых позициях
 
     private void setDifficulty(){
         Scanner scanner=new Scanner(System.in);
@@ -17,58 +17,54 @@ public class CowsNBulls {
         return difficulty;
     }
 
-    private void setRealMassive() {
-        realMassive=new int[getDifficulty()];
+    private void setRealArray() {
+        realArray=new int[getDifficulty()];
         for (int i = 0; i < getDifficulty(); i++) {
             boolean flag=false;
             int tmp=(int)(Math.random()*10);
             for(int j=0;j<i;j++){
-                if(realMassive[j]==tmp) {
+                if(realArray[j]==tmp) {
                     flag=true;
                     i--;
                     break;
                 }
             }
             if(!flag)
-                realMassive[i]=tmp;
+                realArray[i]=tmp;
 
         }
     }
-    private void getRealMassive(){
+    private void printRealArray(){
         for(int i=0;i<getDifficulty();i++){
-            System.out.print(realMassive[i]);
+            System.out.print(realArray[i]);
         }
     }
 
-   /* private void setGuessedMassive(){
-        guessedMassive=new int[getDifficulty()];
+    private void setGuessedArray(){
+        guessedArray=new int[getDifficulty()];
         Scanner scanner=new Scanner(System.in);
         boolean enterLoop=true;
-        while(enterLoop){
-            String defeat=scanner.nextLine();
-            if(defeat.equals("Сдаюсь")){
-                getRealMassive();
+        while(enterLoop) {
+            String defeat = scanner.nextLine();
+            if (defeat.equals("Сдаюсь")) {
+                printRealArray();
+                enterLoop = false;
+            } else {
+                String[] array=defeat.split("");
+                for(int i=0;i<getDifficulty();i++){
+                    guessedArray[i]=Integer.parseInt(array[i]);
+                }
                 enterLoop=false;
             }
         }
-        todo: если не сдаюсь, заполнять массив 
     }
 
-    */
-   private void setGuessedMassive(){
-       guessedMassive=new int[getDifficulty()];
-       Scanner scanner=new Scanner(System.in);
-       for(int i=0;i<getDifficulty();i++){
-           guessedMassive[i]=scanner.nextInt();
-       }
-
-   }
 
     private void compare(){
         cows=0; bulls=0;
         for(int i=0;i<getDifficulty();i++){
             for(int j=0;j<getDifficulty();j++){
-                if(realMassive[i]==guessedMassive[j]){
+                if(realArray[i]==guessedArray[j]){
                     if(i==j)bulls++;
                     else cows++;
                 }
@@ -79,15 +75,15 @@ public class CowsNBulls {
 
     private void game(){
         setDifficulty();
-        setRealMassive();
+        setRealArray();
         int count=0;
         while(bulls!=getDifficulty()){
-            setGuessedMassive();
+            setGuessedArray();
             compare();
             count++;
         }
         System.out.println("Количество попыток равно: "+count);
-        getRealMassive();
+        printRealArray();
     }
 
     public static void main(String[] args){
@@ -95,5 +91,6 @@ public class CowsNBulls {
         test.game();
     }
 }
+
 
 
