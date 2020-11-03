@@ -49,6 +49,7 @@ public class CowsNBulls {
             if (defeat.equals("Сдаюсь")) {
                 printRealArray();
                 enterLoop = false;
+                System.exit(1);
             } else {
                 String[] array=defeat.split("");
                 for(int i=0;i<getDifficulty();i++){
