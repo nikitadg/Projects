@@ -8,6 +8,7 @@ public class CowsNBulls {
     private int bulls=0;//одинаковые числа на одинаковых позициях
 
     private void setDifficulty(){
+        System.out.println("Введите уровень сложности:");
         Scanner scanner=new Scanner(System.in);
         difficulty=scanner.nextInt();
         System.out.print("Ваш выбранный уровень сложности: "+ difficulty+"\n");
@@ -52,7 +53,7 @@ public class CowsNBulls {
                 System.exit(1);
             } else {
                 String[] array=defeat.split("");
-                for(int i=0;i<getDifficulty();i++){
+                for(int i=0;i<array.length;i++){
                     guessedArray[i]=Integer.parseInt(array[i]);
                 }
                 enterLoop=false;
