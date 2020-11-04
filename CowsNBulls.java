@@ -55,6 +55,11 @@ public class CowsNBulls {
                 String[] array=defeat.split("");
                 for(int i=0;i<array.length;i++){
                     guessedArray[i]=Integer.parseInt(array[i]);
+
+                }
+                if(array.length<difficulty){
+                    System.out.println("Введите последовательность заново");
+                    setGuessedArray();
                 }
                 enterLoop=false;
             }
